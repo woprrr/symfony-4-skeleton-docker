@@ -36,13 +36,17 @@ RUN set -xe \
        echo "xdebug.remote_autostart=Off"; \
     }  >> /usr/local/etc/php/conf.d/xdebug.ini
 
+RUN curl -L https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v2.11.1/php-cs-fixer.phar > /usr/local/bin/php-cs-fixer \
+    && chmod +x /usr/local/bin/php-cs-fixer \
+    && rm -rf /var/cache/apk/* /var/tmp/* /tmp/*
+
 COPY --from=0 /usr/bin/composer /usr/bin/composer
 COPY docker/php/php.ini /usr/local/etc/php/php.ini
 COPY docker/php/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 RUN chmod +x /usr/local/bin/docker-entrypoint
 
 
-WORKDIR /srv/symfony
+WORKDIR /app/symfony
 ENTRYPOINT ["docker-entrypoint"]
 CMD ["php-fpm"]
 

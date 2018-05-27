@@ -6,12 +6,12 @@ services:
             context: ./symfony
         container_name: php
         depends_on:
-            - postgres
+            - db
         env_file:
             - ./symfony/.env
         # Comment out these volumes in production
         volumes:
-            - ./symfony:/srv/symfony:rw,cached
+            - ./symfony:/app/symfony:rw,cached
             # If you develop on Linux, comment out the following volumes to just use bind-mounted project directory from host
         environment:
             # If you develop on Windows change this to remote_host=docker.for.win.localhost
@@ -28,7 +28,7 @@ services:
         ports:
             - "8080:80"
         volumes:
-            - ./symfony/public:/srv/symfony/public:ro
+            - ./symfony/public:/app/symfony/public:ro
 
     cache-proxy:
         build:
@@ -43,18 +43,16 @@ services:
         ports:
             - "8081:80"
 
-    postgres:
+    db:
         # In production, you may want to use a managed database service
         image: postgres:9.6-alpine
-        container_name: postgres
+        container_name: db
         environment:
             - POSTGRES_DB=symfony
             - POSTGRES_USER=symfony
             - POSTGRES_PASSWORD=symfony
         volumes:
             - db-data:/var/lib/postgresql/data:rw
-            # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
-            # - ./docker/db/data:/var/lib/postgresql/data:rw
         ports:
             - "5432:5432"
 
@@ -62,11 +60,10 @@ services:
       image: adminer
       container_name: adminer
       depends_on:
-          - postgres
+          - db
       restart: always
       ports:
         - 2000:8080
-
 
     h2-proxy:
         # Don't use this proxy in prod
