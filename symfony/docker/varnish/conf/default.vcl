@@ -40,7 +40,7 @@ sub vcl_recv {
   # Remove the "Forwarded" HTTP header if exists (security)
   unset req.http.forwarded;
 
-  # To allow API Platform to ban by cache tags
+  # Ban by cache tags
   if (req.method == "BAN") {
     if (client.ip !~ ban) {
       return(synth(405, "Not allowed"));

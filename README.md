@@ -128,7 +128,7 @@ ___
 
 3. Open your favorite browser :
 
-    * [http://localhost:8080](http://localhost:8000/) (Web Front).
+    * [http://localhost:8080](http://localhost:8080/) (Web Front).
     * [http://localhost:80](https://localhost/) (Web Front HTTPS).
     * [http://localhost:2000](http://localhost:2000/) Adminer (username: symfony, password: symfony)
 
@@ -137,7 +137,7 @@ ___
     ```sh
     sudo docker-compose down -v
     ```
-    
+
 5. Stop and delete all traces of changes from skeleton :
 
     ```sh
