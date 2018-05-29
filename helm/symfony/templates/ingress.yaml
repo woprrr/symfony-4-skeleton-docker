@@ -13,7 +13,7 @@ metadata:
     {{- end }}
 spec:
   rules:
-  - host: symfony-4-docker-runtime-env.tulik.info
+  - host: symfony-4-skeleton-docker.woprrr.info
     http:
       paths:
       - path: /

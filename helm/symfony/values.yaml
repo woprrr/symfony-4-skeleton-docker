@@ -33,9 +33,9 @@ ingress:
     kubernetes.io/tls-acme: 'true'
   tls:
 #     Secrets must be manually created in the namespace.
-     - secretName: symfony-4-docker-runtime-env-tls-cert
+     - secretName: symfony-4-skeleton-docker-tls-cert
        hosts:
-         - symfony-4-docker-runtime-env.tulik.info
+         - symfony-4-skeleton-docker.woprrr.info
 
 postgresql:
   enabled: true
