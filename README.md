@@ -62,6 +62,7 @@ This project use the following ports :
 | Postgres      | 5432 |
 | Adminer | 2000 |
 | Nginx      | 8080 |
+| Varnish      | 8081 |
 |  H2-Proxy (SSL) | 80 |
 
 ___
@@ -128,8 +129,9 @@ ___
 
 3. Open your favorite browser :
 
-    * [http://localhost:8080](http://localhost:8080/) (Web Front).
-    * [http://localhost:80](https://localhost/) (Web Front HTTPS).
+    * [http://localhost:8080](http://localhost:8080/ OR http://nginx.local-symfony.com) (Web Front).
+    * [http://localhost:8081](http://localhost:8081/) (Web Front Varnished).
+    * [http://localhost:80](https://localhost:80/ OR https://nginx.local-symfony.com) (Web Front HTTPS).
     * [http://localhost:2000](http://localhost:2000/) Adminer (username: symfony, password: symfony)
 
 4. Stop and clear services :

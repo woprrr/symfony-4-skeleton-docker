@@ -25,12 +25,12 @@ services:
         container_name: symfony
         depends_on:
             - php
+        env_file:
+            - ./symfony/.env
         ports:
             - "8080:80"
         volumes:
             - ./symfony/public:/app/symfony/public:ro
-        environment:
-            - VIRTUAL_HOST=nginx.local-symfony.com
 
     cache-proxy:
         build:
