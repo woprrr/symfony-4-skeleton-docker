@@ -13,7 +13,7 @@ Symfony 4 starter-kit for multi container stack.
 
 3. [Configure Xdebug](#configure-xdebug) [`Optional`]
 
-    Soon available...
+    We'll configure Xdebug for IDE PHPStorm.
 
 4. [Run the application](#run-the-application)
 
@@ -109,10 +109,15 @@ cd symfony-4-skeleton-docker
 
 ___
 
-
 ## Configure Xdebug
 
-Comming soon....
+If you use another IDE than [PHPStorm](https://www.jetbrains.com/phpstorm/), go to the [remote debugging](https://xdebug.org/docs/remote) section of Xdebug documentation.
+
+For a better integration of Docker to PHPStorm, use the [documentation](https://github.com/woprrr/symfony-4-skeleton-docker/blob/master/doc/phpstorm-macosx.md).
+
+1. Edit docker-compose file `docker-compose.yml` edit/adjust the configuration as needed for `XDEBUG_CONFIG` AND `PHP_IDE_CONFIG` environment variables.
+
+2. If needed add a server for PHP as explained @see [Add a debug server section](https://github.com/woprrr/symfony-4-skeleton-docker/blob/master/doc/phpstorm-macosx.md#add-a-debug-server).
 ___
 
 ## Run the application
