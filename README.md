@@ -131,7 +131,7 @@ ___
 
     * [http://localhost:8080](http://localhost:8080/ OR http://nginx.local-symfony.com) (Web Front).
     * [http://localhost:8081](http://localhost:8081/) (Web Front Varnished).
-    * [http://localhost:80](https://localhost:80/ OR https://nginx.local-symfony.com) (Web Front HTTPS).
+    * [https://localhost](https://localhost OR https://nginx.local-symfony.com) (Web Front HTTPS).
     * [http://localhost:2000](http://localhost:2000/) Adminer (username: symfony, password: symfony)
 
 4. Stop and clear services :
