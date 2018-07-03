@@ -72,7 +72,7 @@ ___
 To install [Git](http://git-scm.com/book/en/v2/Getting-Started-Installing-Git), download it and install following the instructions :
 
 ```sh
-git clone -b symfony-4-skeleton-docker git@github.com:woprrr/symfony-4-skeleton-docker.git
+git clone git@github.com:woprrr/symfony-4-skeleton-docker.git
 ```
 
 Go to the project directory :
