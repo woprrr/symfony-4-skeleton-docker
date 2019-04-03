@@ -35,7 +35,6 @@ c-install:
 docker-start: init
 	@echo "${BLUE}Starting all containers:${NC}"
 	@docker-compose up -d
-	@make c-install
 
 docker-stop:
 	@echo "${BLUE}Stopping all containers:${NC}"
