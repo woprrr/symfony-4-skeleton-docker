@@ -1,0 +1,77 @@
+version: '3'
+
+services:
+    php:
+        build:
+            context: ./sf-api
+        container_name: php
+        depends_on:
+            - api-db
+        env_file:
+            - ./sf-api/.env
+        # Comment out these volumes in production
+        volumes:
+            - ./sf-api:/app/sf-api:rw,cached
+            # If you develop on Linux, comment out the following volumes to just use bind-mounted project directory from host
+        environment:
+            # If you develop on Windows change this to remote_host=docker.for.win.localhost
+            # If you develop on Linux change this to remote_host=172.17.0.1
+            XDEBUG_CONFIG: "remote_host=docker.for.mac.localhost idekey=IDE_XDEBUG"
+            PHP_IDE_CONFIG: "serverName=docker-server"
+
+    sf-api:
+        build:
+            context: ./sf-api
+            dockerfile: Dockerfile.nginx
+        container_name: sf-api
+        depends_on:
+            - php
+        env_file:
+            - ./sf-api/.env
+        ports:
+            - "8080:80"
+        volumes:
+            - ./sf-api/public:/app/sf-api/public:ro
+
+    cache-proxy:
+        build:
+            context: ./sf-api/
+            dockerfile: ./Dockerfile.varnish
+        container_name: cache-proxy
+        depends_on:
+            - sf-api
+        # Comment out this volume in production
+        volumes:
+            - ./sf-api/docker/varnish/conf:/etc/varnish:ro
+        ports:
+            - "8081:80"
+
+    api-db:
+        # In production, you may want to use a managed database service
+        image: postgres:11-alpine
+        container_name: api-db
+        environment:
+            - POSTGRES_DB=symfony
+            - POSTGRES_USER=symfony
+            - POSTGRES_PASSWORD=symfony
+        volumes:
+            - db-data:/var/lib/postgresql/data:rw
+        ports:
+            - "5432:5432"
+
+    h2-proxy:
+        # Don't use this proxy in prod
+        build:
+            context: ./h2-proxy
+            dockerfile: ./Dockerfile
+        container_name: h2-proxy
+        depends_on:
+            - sf-api
+            - cache-proxy
+        ports:
+            - "80:80"
+            - "443:443"
+            - "8443:8443"
+
+volumes:
+    db-data: {}
