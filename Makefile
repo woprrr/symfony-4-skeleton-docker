@@ -23,6 +23,8 @@ clean:
 	@rm -Rf sf-api/vendor
 	@rm -Rf sf-api/var
 	@rm -Rf sf-api/.php_cs.caches
+	@rm -Rf ie-api/.env.local
+	@rm -Rf ie-api/config/jwt
 
 c-update:
 	@echo "${BLUE}Updating your application dependencies:${NC}"
@@ -39,6 +41,31 @@ docker-start: init
 docker-stop:
 	@echo "${BLUE}Stopping all containers:${NC}"
 	@docker-compose down -v
+
+code-sniffer:
+	@docker-compose exec -T php bin/phpcs -n --colors --error-severity=1 --standard=vendor/escapestudios/symfony2-coding-standard/Symfony --ignore=vendor,bin,public,tests,var,Kernel.php,Migrations,reports .
+
+phpcbf:
+	@docker-compose exec -T php bin/phpcbf -n --colors --error-severity=1 --standard=vendor/escapestudios/symfony2-coding-standard/Symfony --ignore=vendor,bin,public,tests,var,Kernel.php,Migrations,reports .
+
+phpcpd:
+	@docker-compose exec -T php bin/phpcpd --exclude=vendor --exclude=var --log-pmd=cpd.xml .
+
+d-m-m:
+	@docker-compose exec -T php bin/console d:m:m --no-interaction
+
+d-f-l:
+	@mkdir -p ie-api/public/tmp
+	@docker-compose exec -T php bin/console doctrine:fixtures:load --env=test --purge-with-truncate --no-interaction
+
+phpunit-tests:
+	@mkdir -p ie-api/reports/
+	@docker-compose exec -T php bin/simple-phpunit --group=unitTest --coverage-html reports/
+
+generate-jwt-keys:
+	@$(shell mkdir -p $(shell pwd)/ie-api/config/jwt 2> /dev/null)
+	@docker-compose exec -T php openssl genrsa -out config/jwt/private.pem -aes256 -passout pass:70d709840f544f87e8fc1f6a50044b7d 4096
+	@docker-compose exec -T php openssl rsa -pubout -in config/jwt/private.pem -passin pass:70d709840f544f87e8fc1f6a50044b7d -out config/jwt/public.pem
 
 logs:
 	@docker-compose logs -f

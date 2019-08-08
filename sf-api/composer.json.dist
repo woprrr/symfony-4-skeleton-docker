@@ -8,17 +8,18 @@
         "sensio/framework-extra-bundle": "^5.1",
         "symfony/console": "4.2.*",
         "symfony/flex": "^1.1",
-        "symfony/form": "4.2.*",
-        "symfony/security-bundle": "4.2.*",
-        "symfony/framework-bundle": "4.2.*",
+        "symfony/form": "*",
+        "symfony/security-bundle": "*",
+        "symfony/framework-bundle": "*",
         "symfony/orm-pack": "^1.0",
-        "symfony/yaml": "4.2.*",
-        "symfony/dotenv": "4.2.*"
+        "symfony/yaml": "*",
+        "symfony/dotenv": "*"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.0",
         "escapestudios/symfony2-coding-standard": "~3.4.1",
         "php-http/mock-client": "^1.1",
+        "fzaninotto/faker": "^1.8",
         "php-mock/php-mock-phpunit": "^2.1",
         "phploc/phploc": "^4.0",
         "phpunit/phpunit": "~6.5",
@@ -29,8 +30,7 @@
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.0",
         "symfony/profiler-pack": "*",
-        "symfony/test-pack": "*",
-        "symfony/web-server-bundle": "4.2.*"
+        "symfony/test-pack": "*"
     },
     "config": {
         "bin-dir": "bin",
@@ -50,6 +50,8 @@
         }
     },
     "replace": {
+        "paragonie/random_compat": "2.*",
+        "symfony/polyfill-ctype": "*",
         "symfony/polyfill-iconv": "*",
         "symfony/polyfill-php71": "*",
         "symfony/polyfill-php70": "*",
@@ -76,7 +78,7 @@
     "extra": {
         "symfony": {
             "allow-contrib": true,
-            "require": "4.2.*"
+            "require": "4.3.*"
         }
     }
 }
